@@ -37,7 +37,10 @@ export function getPlugins(schema: Schema, stateKey: any, version: number, start
   return [
     editablePlugin(startEditable),
     ...suggestion(
-      (action) => store.dispatch(handleSuggestion(action)),
+      (action) => {
+        console.log('handleSuggestion', action);
+        return store.dispatch(handleSuggestion(action));
+      },
       schema.nodes.variable ? ALL_TRIGGERS : NO_VARIABLE,
       // Cancel on space after some of the triggers
       (trigger) => !trigger?.match(/(?:(?:[a-zA-Z0-9_]+)\s?=)|(?:\{\{)/),
